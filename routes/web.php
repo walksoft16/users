@@ -9,4 +9,4 @@
  |
  */
 
-//Route::get('users','\Walksoft\Users\Http\Controllers\WelcomeController@index');
+Route::resource('users', '\Walksoft\Users\Http\Controllers\UsersController');
