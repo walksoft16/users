@@ -1,18 +1,19 @@
 {
-    "name": "Walksoft16/Users",
+    "name": "walksoft16/users",
     "description": ":description",
     "license": "MIT",
     "authors": [
         {
             "name": "Walksoft SAS",
             "email": "walksoft.info@gmail.com",
-            "homepage": "walksoft.com.co"
+            "homepage": "https://github.com/walksoft/users"
         }
     ],
-    "homepage": "https://github.com/Walksoft/Users",
+    "homepage": "https://github.com/walksoft/users",
     "keywords": ["Laravel", "Users"],
     "require": {
-        "illuminate/support": "~5"
+        "illuminate/support": "~5",
+        "walksoft16/roles": "^0.1"
     },
     "require-dev": {
         "phpunit/phpunit": "~7.0",
