@@ -28,7 +28,7 @@ class UsersServiceProvider extends ServiceProvider
         AliasLoader::getInstance()->alias('UsersAppController', $nameSpace . 'Http\Controllers\Controller');
 
         // Routes
-        $this->app->router->group(['namespace' => $nameSpace . 'Http\Controllers'], function () {
+        $this->app->router->group(['namespace' => $nameSpace . 'Http\Controllers', 'middleware'=>['web', 'auth']], function () {
             require __DIR__ . '/../routes/web.php';
         });
 
