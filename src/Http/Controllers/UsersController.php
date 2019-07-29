@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Input;
 use Intervention\Image\Facades\Image;
-use Ultraware\Roles\Models\Role;
-use Ultraware\Roles\Models\Permission;
+use Caffeinated\Shinobi\Models\Role;
+use Caffeinated\Shinobi\Models\Permission;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 
@@ -31,18 +31,18 @@ class UsersController extends Controller {
      */
     public function index() {
 
-        if (!Auth::user()->hasPermission('list.users') &&
-                !Auth::user()->hasPermission('create.users') &&
-                !Auth::user()->hasPermission('edit.users') &&
-                !Auth::user()->hasPermission('delete.users')) {
+        if (!Auth::user()->hasPermissionTo('list.users') &&
+                !Auth::user()->hasPermissionTo('create.users') &&
+                !Auth::user()->hasPermissionTo('edit.users') &&
+                !Auth::user()->hasPermissionTo('delete.users')) {
             Session::flash('error', trans('adminlte::adminlte.app_msj_not_permissions'));
             return redirect()->route('admin');
         }
 
         $permits = [];
-        $permits['create'] = Auth::user()->hasPermission('create.users');
-        $permits['edit'] = Auth::user()->hasPermission('edit.users');
-        $permits['delete'] = Auth::user()->hasPermission('delete.users');
+        $permits['create'] = Auth::user()->hasPermissionTo('create.users');
+        $permits['edit'] = Auth::user()->hasPermissionTo('edit.users');
+        $permits['delete'] = Auth::user()->hasPermissionTo('delete.users');
 
         $users = \App\Models\User::all();
         return view('Users::admin.users.index', compact('users', 'permits'));
@@ -55,7 +55,7 @@ class UsersController extends Controller {
      */
     public function create() {
 
-        if (!Auth::user()->hasPermission('create.users')) {
+        if (!Auth::user()->hasPermissionTo('create.users')) {
             Session::flash('error', trans('adminlte::adminlte.app_msj_not_permissions'));
             return redirect()->route('admin');
         }
@@ -79,7 +79,7 @@ class UsersController extends Controller {
      */
     public function store(Request $request) {
 
-        if (!Auth::user()->hasPermission('create.users')) {
+        if (!Auth::user()->hasPermissionTo('create.users')) {
             Session::flash('error', trans('adminlte::adminlte.app_msj_not_permissions'));
             return redirect()->route('admin');
         }
@@ -121,7 +121,7 @@ class UsersController extends Controller {
      */
     public function edit($id) {
 
-        if (!Auth::user()->hasPermission('edit.users')) {
+        if (!Auth::user()->hasPermissionTo('edit.users')) {
             Session::flash('error', trans('adminlte::adminlte.app_msj_not_permissions'));
             return redirect()->route('admin');
         }
@@ -143,7 +143,7 @@ class UsersController extends Controller {
      */
     public function update(Request $request, $id) {
 
-        if (!Auth::user()->hasPermission('edit.users')) {
+        if (!Auth::user()->hasPermissionTo('edit.users')) {
             Session::flash('error', trans('adminlte::adminlte.app_msj_not_permissions'));
             return redirect()->route('admin');
         }
@@ -195,7 +195,7 @@ class UsersController extends Controller {
      */
     public function show($id) {
 
-        if (!Auth::user()->hasPermission('delete.users')) {
+        if (!Auth::user()->hasPermissionTo('delete.users')) {
             Session::flash('error', trans('adminlte::adminlte.app_msj_not_permissions'));
             return redirect()->route('admin');
         }
@@ -212,7 +212,7 @@ class UsersController extends Controller {
      */
     public function destroy($id) {
 
-        if (!Auth::user()->hasPermission('delete.users')) {
+        if (!Auth::user()->hasPermissionTo('delete.users')) {
             Session::flash('error', trans('adminlte::adminlte.app_msj_not_permissions'));
             return redirect()->route('admin');
         }
